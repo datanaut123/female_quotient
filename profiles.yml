@@ -1,20 +1,18 @@
-dbt_template:
+female_quo:
   target: dev
   outputs:
     dev:
       type: bigquery
       method: oauth
-      project: GCP_PROJECT_ID
-      dataset: DBT_DATASET_NAME 
+      project: looker-studio-487917
+      dataset: dev 
       threads: 4  
       OPTIONAL_CONFIG: VALUE
 
     prod:
       type: bigquery
       method: oauth
-      project: GCP_PROJECT_ID
-      dataset: DBT_DATASET_NAME 
+      project: looker-studio-487917
+      dataset: prod
       threads: 4  
       OPTIONAL_CONFIG: VALUE
-
-  target: dev
