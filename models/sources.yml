@@ -1,23 +1,38 @@
 version: 2
 
 sources:
-  - name: Schema  # Logical name for the source
-    database: Project ID  # BigQuery project ID
-    schema: Dataset  # BigQuery dataset
+  - name: hubspot  # Logical name for the source
+    database: looker-studio-487917  # BigQuery project ID
+    schema: hubspot_female_quotient  # BigQuery dataset
     tables:
-      - name: ad_insights # name you want to call it
-        identifier: ad_insights # name for the source table
-        description: "Contains data about ** source synced from Connector Name."
-      - name: account_analytics # name you want to call it
-        identifier: account_performance # name for the source table
-        description: "Contains data about ** source synced from Connector Name."
-  - name: Schema  # Logical name for the source
-    database: Project ID  # BigQuery project ID
-    schema: Dataset  # BigQuery dataset
-    tables:
-      - name: campaigns
-        identifier: campaigns
-        description: "Contains data about ** source synced from Connector Name."
-      - name: campaign_analytics
-        identifier: ad_campaign_analytics
-        description: "Contains data about ** source synced from Connector Name."
+      - name: contact # name you want to call it
+        identifier: contact # name for the source table
+        description: "Contains data about Hubspot source synced from Fivetran."
+
+      - name: company # name you want to call it
+        identifier: company # name for the source table
+        description: "Contains data about Hubspot source synced from Fivetran."
+
+      - name: company_list_member # name you want to call it
+        identifier: company_list_member # name for the source table
+        description: "Contains data about Hubspot source synced from Fivetran."
+
+      - name: contact_company # name you want to call it
+        identifier: contact_company # name for the source table
+        description: "Contains data about Hubspot source synced from Fivetran."
+
+      - name: contact_form_submission # name you want to call it
+        identifier: contact_form_submission # name for the source table
+        description: "Contains data about Hubspot source synced from Fivetran."
+
+      - name: deal # name you want to call it
+        identifier: deal # name for the source table
+        description: "Contains data about Hubspot source synced from Fivetran."
+
+      - name: deal_contact # name you want to call it
+        identifier: deal_contact # name for the source table
+        description: "Contains data about Hubspot source synced from Fivetran."
+
+      - name: deal_pipeline_stage # name you want to call it
+        identifier: deal_pipeline_stage # name for the source table
+        description: "Contains data about Hubspot source synced from Fivetran."
