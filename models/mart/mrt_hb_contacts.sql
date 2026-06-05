@@ -64,4 +64,4 @@
     is_subscribed_to_newsletter,
     zoominfo_contact_accuracy_score
 
-    from {{ref("fct_hb_contacts")}}
+    from {{ref("fct_hb_filtered_contacts")}}
