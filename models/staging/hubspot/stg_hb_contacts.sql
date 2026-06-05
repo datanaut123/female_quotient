@@ -61,7 +61,12 @@ select
 
     -- Newsletter & Enrichment
     property_is_subscribed_to_newsletter as is_subscribed_to_newsletter,
-    property_zoominfo_contact_accuracy_score as zoominfo_contact_accuracy_score
+    property_zoominfo_contact_accuracy_score as zoominfo_contact_accuracy_score,
+    property_num_contacted_notes as num_contacted,
+    property_hs_email_bounce as email_bounce,
+    date(property_notes_last_contacted) as last_contacted_date,
+    date_diff(current_date(), date(property_notes_last_contacted), day) as days_since_last_contacted
 
 from {{ source('hubspot', 'contact') }} as cn 
 left join {{ref("stg_hb_companies")}} as co on cn.property_associatedcompanyid = co.company_id
+where property_zoominfo_match_status not in ('INVALID_INPUT', 'SERVICE_ERROR')

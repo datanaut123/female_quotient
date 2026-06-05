@@ -62,7 +62,12 @@ WITH base AS (
 
         -- Newsletter & Enrichment
         is_subscribed_to_newsletter,
-        zoominfo_contact_accuracy_score
+        zoominfo_contact_accuracy_score,
+        num_contacted,
+        email_bounce,
+        last_contacted_date,
+        days_since_last_contacted
+
 
     FROM {{ ref("stg_hb_contacts") }}
 ),
@@ -222,6 +227,10 @@ SELECT
 
     -- Newsletter & Enrichment
     is_subscribed_to_newsletter,
-    zoominfo_contact_accuracy_score
+    zoominfo_contact_accuracy_score,
+    num_contacted,
+    email_bounce,
+    last_contacted_date,
+    days_since_last_contacted
 
 FROM company_name_cleaned
