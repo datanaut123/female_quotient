@@ -37,6 +37,10 @@ sources:
         identifier: deal_pipeline_stage # name for the source table
         description: "Contains data about Hubspot source synced from Fivetran."
 
+      - name: deal_property_history # name you want to call it
+        identifier: deal_property_history # name for the source table
+        description: "Contains data about Hubspot source synced from Fivetran."
+
   - name: sheets  # Logical name for the source
     database: looker-studio-487917  # BigQuery project ID
     schema: sheets  # BigQuery dataset
