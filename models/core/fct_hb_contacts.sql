@@ -66,7 +66,8 @@ WITH base AS (
         num_contacted,
         email_bounce,
         last_contacted_date,
-        days_since_last_contacted
+        days_since_last_contacted,
+        zoominfo_contact_id
 
 
     FROM {{ ref("stg_hb_contacts") }}
@@ -231,6 +232,7 @@ SELECT
     num_contacted,
     email_bounce,
     last_contacted_date,
-    days_since_last_contacted
+    days_since_last_contacted,
+    zoominfo_contact_id
 
 FROM company_name_cleaned

@@ -1,4 +1,4 @@
-    select 
+select
     -- Contact Identity
     contact_id,
     first_name,
@@ -21,7 +21,7 @@
 
     -- Company Info (cleaned)
     company_name,
-    company_name_quality_flag, 
+    company_name_quality_flag,
     company_create_date,
     website,
     domain,
@@ -66,16 +66,18 @@
     num_contacted,
     email_bounce,
     last_contacted_date,
-    days_since_last_contacted
+    days_since_last_contacted,
+    zoominfo_contact_id
 
-    from {{ref("fct_hb_contacts")}}
-    where zoominfo_match_status = 'FULL_MATCH'
+from {{ ref("fct_hb_contacts") }}
+where
+    zoominfo_match_status = 'FULL_MATCH'
     or zoominfo_match_status = 'CONTACT_ONLY_MATCH'
     or zoominfo_match_status = ''
 
-    union all 
+union all
 
-        select 
+select
     -- Contact Identity
     contact_id,
     first_name,
@@ -98,7 +100,7 @@
 
     -- Company Info (cleaned)
     company_name,
-    company_name_quality_flag, 
+    company_name_quality_flag,
     company_create_date,
     website,
     domain,
@@ -143,18 +145,22 @@
     num_contacted,
     email_bounce,
     last_contacted_date,
-    days_since_last_contacted
+    days_since_last_contacted,
+    zoominfo_contact_id
 
-    from {{ref("fct_hb_contacts")}}
-    where (zoominfo_match_status = 'NON_MATCH_BY_REQUIRED_FIELDS'
-    or zoominfo_match_status = 'NO_MATCH')
+from {{ ref("fct_hb_contacts") }}
+where
+    (
+        zoominfo_match_status = 'NON_MATCH_BY_REQUIRED_FIELDS'
+        or zoominfo_match_status = 'NON_MATCH_BY_CONTACT_ACCURACY_MIN'
+    )
     and num_contacted >= 1
-    and email_bounce is not null
-    and days_since_last_contacted >= 180
+    and email_bounce is null
+    and days_since_last_contacted <= 365
 
-        union all 
+union all
 
-        select 
+select
     -- Contact Identity
     contact_id,
     first_name,
@@ -177,7 +183,7 @@
 
     -- Company Info (cleaned)
     company_name,
-    company_name_quality_flag, 
+    company_name_quality_flag,
     company_create_date,
     website,
     domain,
@@ -222,8 +228,8 @@
     num_contacted,
     email_bounce,
     last_contacted_date,
-    days_since_last_contacted
+    days_since_last_contacted,
+    zoominfo_contact_id
 
-    from {{ref("fct_hb_contacts")}}
-    where zoominfo_match_status = 'NON_MATCH_BY_CONTACT_ACCURACY_MIN'
-    and zoominfo_contact_accuracy_score >= 90
+from {{ ref("fct_hb_contacts") }}
+where zoominfo_match_status = 'NON_MATCH' and zoominfo_contact_id is not null

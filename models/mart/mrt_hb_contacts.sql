@@ -1,6 +1,6 @@
-    select 
+select
     -- Contact Identity
-    contact_id,
+    a.contact_id,
     first_name,
     last_name,
     email,
@@ -21,7 +21,7 @@
 
     -- Company Info (cleaned)
     company_name,
-    company_name_quality_flag,          -- drop this column once QA is signed off
+    company_name_quality_flag,  -- drop this column once QA is signed off
     company_create_date,
     website,
     domain,
@@ -62,6 +62,10 @@
 
     -- Newsletter & Enrichment
     is_subscribed_to_newsletter,
-    zoominfo_contact_accuracy_score
+    zoominfo_contact_accuracy_score,
+    case when b.is_fq_partner is null then 'No' else is_fq_partner end as is_fq_partner,
+    row_number() over (partition by email order by create_date desc) as rn
 
-    from {{ref("fct_hb_filtered_contacts")}}
+from {{ ref("fct_hb_filtered_contacts") }} as a
+left join {{ ref("fct_hb_fq_partners") }} as b on a.contact_id = b.contact_id
+qualify rn = 1
