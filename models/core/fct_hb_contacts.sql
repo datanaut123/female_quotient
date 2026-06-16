@@ -236,3 +236,6 @@ SELECT
     zoominfo_contact_id
 
 FROM company_name_cleaned
+where (first_name is not null and first_name != '')
+and (last_name is not null and last_name != '')
+and (email is not null and email != '')
