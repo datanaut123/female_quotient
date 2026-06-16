@@ -13,14 +13,14 @@ select
     linkedin_url,
 
     -- Job & Professional Info
-    job_title,
+    lower(job_title) as job_title,
     job_level,
     department,
     job_function,
     historic_job_information,
 
     -- Company Info (cleaned)
-    company_name,
+    lower(company_name) as company_name,
     company_name_quality_flag,  -- drop this column once QA is signed off
     company_create_date,
     website,
@@ -55,10 +55,10 @@ select
     lounge_or_series_name,
     lounge_or_series_invited,
     lounge_or_series_rsvpd,
-    lounge_or_series_attended,
+    lower(lounge_or_series_attended) as lounge_or_series_attended,
     -- reception_or_party_invited  -- NOT FOUND in contacts table
     reception_or_party_rsvpd,
-    reception_or_party_attended,
+    lower(reception_or_party_attended) as reception_or_party_attended,
 
     -- Newsletter & Enrichment
     is_subscribed_to_newsletter,
