@@ -15,9 +15,33 @@ select
     -- Job & Professional Info
     job_title,
     lower(job_title) as job_title_lower,
-    job_level,
-    department,
-    job_function,
+    case when job_level is null then '' else job_level end as job_level,
+    case
+        when job_level = 'Board Member / Advisor'
+        then 1
+        when job_level = 'Owner / Founder'
+        then 2
+        when job_level = 'C-Level'
+        then 3
+        when job_level = 'VP-Level'
+        then 4
+        when job_level = 'Director'
+        then 5
+        when job_level = 'Manager'
+        then 6
+        when job_level = 'Non-Manager'
+        then 7
+        when job_level = 'Freelance / Self-Employed'
+        then 8
+        when job_level = 'Student'
+        then 9
+        when job_level = 'Retired'
+        then 10
+        when (job_level = '' or job_level) is null
+        then 11
+    end as job_level_filter,
+    case when department is null then '' else department end as department,
+    case when job_function is null then '' else job_function end as job_function,
     historic_job_information,
 
     -- Company Info (cleaned)
@@ -28,8 +52,12 @@ select
     website,
     domain,
     company_type,
-    company_industry,
-    company_subindustry,
+    case
+        when company_industry is null then '' else company_industry
+    end as company_industry,
+    case
+        when company_subindustry is null then '' else company_subindustry
+    end as company_subindustry,
     company_size,
     case
         when company_size = 'null' or company_size is null or company_size = ''
@@ -91,13 +119,13 @@ select
     zoominfo_match_status,
 
     -- Location
-    city,
-    state,
+    case when city is null then '' else city end as city,
+    case when state is null then '' else state end as state,
     state_code,
-    country,
+    case when country is null then '' else country end as country,
     country_region_code,
     postal_code,
-    metro_area,
+    case when metro_area is null then '' else metro_area end as metro_area,
 
     -- Education
     highest_level_of_education,
