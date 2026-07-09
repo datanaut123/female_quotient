@@ -37,7 +37,7 @@ select
         then 9
         when job_level = 'Retired'
         then 10
-        when (job_level = '' or job_level) is null
+        when (job_level = '' or job_level is null)
         then 11
     end as job_level_filter,
     case when department is null then '' else department end as department,
