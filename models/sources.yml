@@ -41,10 +41,19 @@ sources:
         identifier: deal_property_history # name for the source table
         description: "Contains data about Hubspot source synced from Fivetran."
 
+
   - name: sheets  # Logical name for the source
     database: looker-studio-487917  # BigQuery project ID
     schema: sheets  # BigQuery dataset
     tables:
       - name: top_fq_companies # name you want to call it
         identifier: top_fq_companies # name for the source table
+        description: "Contains data about google sheetssource synced from Fivetran."
+
+      - name: lounge_dates # name you want to call it
+        identifier: lounge_dates # name for the source table
+        description: "Contains data about google sheetssource synced from Fivetran."
+
+      - name: party_dates # name you want to call it
+        identifier: party_dates # name for the source table
         description: "Contains data about google sheetssource synced from Fivetran."
