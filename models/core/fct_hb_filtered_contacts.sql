@@ -67,7 +67,14 @@ select
     email_bounce,
     last_contacted_date,
     days_since_last_contacted,
-    zoominfo_contact_id
+    zoominfo_contact_id,
+    lounge_attended_date,
+    party_attended_date,
+    last_event_spoke_date,
+    lounge_series_rsvpd_date,
+    is_submitted_form,
+    reception_party_rsvpd_date,
+    form_submitted_at
 
 from {{ ref("fct_hb_contacts") }}
 where
@@ -146,7 +153,14 @@ select
     email_bounce,
     last_contacted_date,
     days_since_last_contacted,
-    zoominfo_contact_id
+    zoominfo_contact_id,
+    lounge_attended_date,
+    party_attended_date,
+    last_event_spoke_date,
+    lounge_series_rsvpd_date,
+    is_submitted_form,
+    reception_party_rsvpd_date,
+    form_submitted_at
 
 from {{ ref("fct_hb_contacts") }}
 where
@@ -229,7 +243,14 @@ select
     email_bounce,
     last_contacted_date,
     days_since_last_contacted,
-    zoominfo_contact_id
+    zoominfo_contact_id,
+    lounge_attended_date,
+    party_attended_date,
+    last_event_spoke_date,
+    lounge_series_rsvpd_date,
+    is_submitted_form,
+    reception_party_rsvpd_date,
+    form_submitted_at
 
 from {{ ref("fct_hb_contacts") }}
 where zoominfo_match_status = 'NON_MATCH' and zoominfo_contact_id is not null
