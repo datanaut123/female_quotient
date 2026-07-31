@@ -69,6 +69,7 @@ select
         current_date(), date(property_notes_last_contacted), day
     ) as days_since_last_contacted,
     property_zoominfo_contact_id as zoominfo_contact_id,
+    property_number_of_inboun as number_of_inbound_email,
     case
         when
             property_lounge_or_series_attended
@@ -1421,3 +1422,53 @@ left join
     on cn.property_associatedcompanyid = co.company_id
 left join {{ref("stg_hb_contact_form_submission")}} as fo on cn.id =fo.contact_id
 where property_zoominfo_match_status not in ('INVALID_INPUT', 'SERVICE_ERROR')
+
+--     ),
+
+--     lounge_attended as (
+--         select lounge_name, lounge_attend_date as lounge_attended_date
+
+--         from {{ ref("stg_lounge_dates") }}
+--     ),
+
+--     lounge_rsvpd as (
+--         select lounge_name, lounge_attend_date as lounge_series_rsvpd_date
+
+--         from {{ ref("stg_lounge_dates") }}
+
+--     ),
+
+--     party_attended as (
+--         select event_name, party_date as party_attended_date
+
+--         from {{ ref("stg_party_dates") }}
+--     ),
+
+--     party_rsvpd as (
+--         select event_name, party_date as reception_party_rsvpd_date
+
+--         from {{ ref("stg_party_dates") }}
+--     ),
+
+--     speaker_info as (
+--         select lounge_name, lounge_attend_date as last_event_spoke_date
+--         from {{ ref("stg_lounge_dates") }}
+
+--     )
+
+-- select
+--     cn.*,
+--     lounge_attended_date,
+--     lounge_series_rsvpd_date,
+--     party_attended_date,
+--     reception_party_rsvpd_date,
+--     last_event_spoke_date
+
+-- from contacts as cn
+-- left join lounge_attended as la on cn.lounge_or_series_attended = la.lounge_name
+-- left join lounge_rsvpd as lr on cn.lounge_or_series_rsvpd = lr.lounge_name
+-- left join speaker_info as si on cn.lounge_or_series_name = si.lounge_name
+-- left join party_attended as pa on cn.reception_or_party_attended = pa.event_name
+-- left join
+--     party_rsvpd as pr on cn.reception_or_party_rsvpd = pr.event_name
+
