@@ -199,9 +199,16 @@ with
         from cte_2
         where days_since_last_lounge_attended <= 365
 
+    ),
+
+    last_cte as (
+
+        select contact_id, count(contact_id) as num_lounge_attended_last_year
+
+        from cte_3
+        group by contact_id
     )
 
-select contact_id, count(contact_id) as num_lounge_attended_last_year
-
-from cte_3
-group by contact_id
+select *
+from last_cte
+where num_lounge_attended_last_year >= 2
