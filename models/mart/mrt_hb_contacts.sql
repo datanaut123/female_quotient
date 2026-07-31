@@ -185,22 +185,24 @@ with
             date_diff(
                 current_date(), date(form_submitted_at), day
             ) as days_since_last_form_submitted,
+            num_lounge_attended_last_year,
+            number_of_inbound_email
 
         from {{ ref("fct_hb_filtered_contacts") }} as a
         left join {{ ref("fct_hb_fq_partners") }} as b on a.contact_id = b.contact_id
+        left join {{ ref("stg_hb_contact_property_history") }} as c on a.contact_id = c.contact_id
         qualify rn = 1
     )
 
 select
     *,
     case
-        when is_fq_partner = 'Yes'
-        then 'Partner'
         when days_since_contact_creation <= 90
         then 'New'
         when
             (lower(contact_type) like '%speaker%' and days_since_last_spoke <= 365)
             or days_since_last_party_attended <= 365
+            or num_lounge_attended_last_year <= 365
         then 'High'
         when
             days_since_last_reception_party_rsvpd <= 365

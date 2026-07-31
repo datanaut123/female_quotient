@@ -75,7 +75,8 @@ with
             lounge_series_rsvpd_date,
             is_submitted_form,
             reception_party_rsvpd_date,
-            form_submitted_at
+            form_submitted_at,
+            number_of_inbound_email
 
         from {{ ref("stg_hb_contacts") }}
     ),
@@ -280,7 +281,8 @@ select
     lounge_series_rsvpd_date,
     is_submitted_form,
     reception_party_rsvpd_date,
-    form_submitted_at
+    form_submitted_at,
+    number_of_inbound_email,
 
 from company_name_cleaned
 where

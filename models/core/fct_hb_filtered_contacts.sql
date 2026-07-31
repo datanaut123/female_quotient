@@ -74,7 +74,8 @@ select
     lounge_series_rsvpd_date,
     is_submitted_form,
     reception_party_rsvpd_date,
-    form_submitted_at
+    form_submitted_at,
+    number_of_inbound_email
 
 from {{ ref("fct_hb_contacts") }}
 where
@@ -160,7 +161,8 @@ select
     lounge_series_rsvpd_date,
     is_submitted_form,
     reception_party_rsvpd_date,
-    form_submitted_at
+    form_submitted_at,
+    number_of_inbound_email
 
 from {{ ref("fct_hb_contacts") }}
 where
@@ -250,7 +252,8 @@ select
     lounge_series_rsvpd_date,
     is_submitted_form,
     reception_party_rsvpd_date,
-    form_submitted_at
+    form_submitted_at,
+    number_of_inbound_email
 
 from {{ ref("fct_hb_contacts") }}
 where zoominfo_match_status = 'NON_MATCH' and zoominfo_contact_id is not null
