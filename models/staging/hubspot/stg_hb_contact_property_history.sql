@@ -177,7 +177,7 @@ with
 
         from {{ source('hubspot', 'contact_property_history') }} as cn
         -- left join {{ref("stg_lounge_dates")}} as ld on cn.value = ld.lounge_name
-        -- where cn.name = 'lounge_or_series_attended'
+        where cn.name = 'lounge_or_series_attended'
         qualify rn = 1
     ),
 

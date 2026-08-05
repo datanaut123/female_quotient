@@ -202,7 +202,7 @@ select
         when
             (lower(contact_type) like '%speaker%' and days_since_last_spoke <= 365)
             or days_since_last_party_attended <= 365
-            or num_lounge_attended_last_year <= 365
+            or num_lounge_attended_last_year >= 2
         then 'High'
         when
             days_since_last_reception_party_rsvpd <= 365
@@ -211,6 +211,23 @@ select
             or days_since_last_form_submitted <= 365
         then 'Moderate'
         else 'Disengaged'
-    end as engagement_level
+    end as engagement_level,
+    case
+        when days_since_contact_creation <= 90
+        then 1
+        when
+            (lower(contact_type) like '%speaker%' and days_since_last_spoke <= 365)
+            or days_since_last_party_attended <= 365
+            or num_lounge_attended_last_year >= 2
+        then 2
+        when
+            days_since_last_reception_party_rsvpd <= 365
+            or days_since_last_lounge_attended <= 365
+            or days_since_last_lounge_series_rsvpd <= 365
+            or days_since_last_form_submitted <= 365
+        then 3
+        else 4
+    end as engagement_level_order,
+
 
 from cte_1
