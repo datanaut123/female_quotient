@@ -45,6 +45,10 @@ sources:
         identifier: contact_property_history # name for the source table
         description: "Contains data about Hubspot source synced from Fivetran."
 
+      - name: owner # name you want to call it
+        identifier: owner # name for the source table
+        description: "Contains data about Hubspot source synced from Fivetran."
+
 
   - name: sheets  # Logical name for the source
     database: looker-studio-487917  # BigQuery project ID
