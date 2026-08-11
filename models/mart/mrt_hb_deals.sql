@@ -4,7 +4,7 @@ select
     deal_url,
     deal_create_date,
     date,
-    deal_amount,
+    pipeline_amount,
     deal_close_date,
     stage_name,
     owner_name,
