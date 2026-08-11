@@ -45,6 +45,30 @@ jobs:
     #     sqlfluff lint models/
     #     sqlfluff fix models/ --force
 
+    - name: Generate profiles.yml
+      run: |
+        cat > profiles.yml << EOF
+        female_quo:
+          target: dev
+          outputs:
+            dev:
+              type: bigquery
+              method: service-account
+              project: ${{ secrets.GCP_PROJECT_ID }}
+              dataset: ${{ secrets.DEV }}
+              threads: 4
+              keyfile: "${GOOGLE_APPLICATION_CREDENTIALS}"
+              location: ${{ secrets.LOCATION }}
+            prod:
+              type: bigquery
+              method: service-account
+              project: ${{ secrets.GCP_PROJECT_ID }}
+              dataset: ${{ secrets.PROD }}
+              threads: 4
+              keyfile: "${GOOGLE_APPLICATION_CREDENTIALS}"
+              location: ${{ secrets.LOCATION }}
+        EOF
+
     - name: Run dbt commands
       run: |
         dbt debug --profiles-dir . --project-dir . --target dev
@@ -56,3 +80,4 @@ jobs:
       if: always()
       run: |
         rm -f ${GOOGLE_APPLICATION_CREDENTIALS}
+        rm -f profiles.yml
