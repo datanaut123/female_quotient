@@ -47,27 +47,43 @@ jobs:
 
     - name: Generate profiles.yml
       run: |
-        cat > profiles.yml << EOF
+        cat > profiles.yml << 'EOF'
         female_quo:
           target: dev
           outputs:
             dev:
               type: bigquery
               method: service-account
-              project: ${{ secrets.GCP_PROJECT_ID }}
-              dataset: ${{ secrets.DEV }}
+              project: PLACEHOLDER_PROJECT
+              dataset: PLACEHOLDER_DEV_DATASET
               threads: 4
-              keyfile: "${GOOGLE_APPLICATION_CREDENTIALS}"
-              location: ${{ secrets.LOCATION }}
+              keyfile: "PLACEHOLDER_KEYFILE"
+              location: PLACEHOLDER_LOCATION
             prod:
               type: bigquery
               method: service-account
-              project: ${{ secrets.GCP_PROJECT_ID }}
-              dataset: ${{ secrets.PROD }}
+              project: PLACEHOLDER_PROJECT
+              dataset: PLACEHOLDER_PROD_DATASET
               threads: 4
-              keyfile: "${GOOGLE_APPLICATION_CREDENTIALS}"
-              location: ${{ secrets.LOCATION }}
+              keyfile: "PLACEHOLDER_KEYFILE"
+              location: PLACEHOLDER_LOCATION
         EOF
+        sed -i "s|PLACEHOLDER_PROJECT|${{ secrets.GCP_PROJECT_ID }}|g" profiles.yml
+        sed -i "s|PLACEHOLDER_DEV_DATASET|${{ secrets.DEV }}|g" profiles.yml
+        sed -i "s|PLACEHOLDER_PROD_DATASET|${{ secrets.PROD }}|g" profiles.yml
+        sed -i "s|PLACEHOLDER_LOCATION|${{ secrets.LOCATION }}|g" profiles.yml
+        sed -i "s|PLACEHOLDER_KEYFILE|${GOOGLE_APPLICATION_CREDENTIALS}|g" profiles.yml
+
+    - name: Debug - verify profiles.yml
+      run: |
+        echo "Current directory:"
+        pwd
+        echo "Files in current directory:"
+        ls -la
+        echo "Contents of profiles.yml:"
+        cat profiles.yml || echo "profiles.yml NOT FOUND"
+        echo "GOOGLE_APPLICATION_CREDENTIALS value:"
+        echo "$GOOGLE_APPLICATION_CREDENTIALS"
 
     - name: Run dbt commands
       run: |
