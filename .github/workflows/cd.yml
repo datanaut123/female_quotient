@@ -10,9 +10,9 @@ on:
 
 env:
   DBT_PROFILES_DIR: .
-  DBT_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
-  DBT_DATASET: ${{ secrets.PROD }}
-  DBT_LOCATION: ${{ secrets.LOCATION }}
+  DBT_PROJECT: ${{ vars.GCP_PROJECT_ID }}
+  DBT_DATASET: ${{ vars.PROD }}
+  DBT_LOCATION: ${{ vars.LOCATION }}
 
 jobs:
   dbt-cd:
@@ -63,10 +63,10 @@ jobs:
               keyfile: "PLACEHOLDER_KEYFILE"
               location: PLACEHOLDER_LOCATION
         EOF
-        sed -i "s|PLACEHOLDER_PROJECT|${{ secrets.GCP_PROJECT_ID }}|g" profiles.yml
-        sed -i "s|PLACEHOLDER_DEV_DATASET|${{ secrets.DEV }}|g" profiles.yml
-        sed -i "s|PLACEHOLDER_PROD_DATASET|${{ secrets.PROD }}|g" profiles.yml
-        sed -i "s|PLACEHOLDER_LOCATION|${{ secrets.LOCATION }}|g" profiles.yml
+        sed -i "s|PLACEHOLDER_PROJECT|${{ vars.GCP_PROJECT_ID }}|g" profiles.yml
+        sed -i "s|PLACEHOLDER_DEV_DATASET|${{ vars.DEV }}|g" profiles.yml
+        sed -i "s|PLACEHOLDER_PROD_DATASET|${{ vars.PROD }}|g" profiles.yml
+        sed -i "s|PLACEHOLDER_LOCATION|${{ vars.LOCATION }}|g" profiles.yml
         sed -i "s|PLACEHOLDER_KEYFILE|${GOOGLE_APPLICATION_CREDENTIALS}|g" profiles.yml
 
     - name: Debug - verify profiles.yml
