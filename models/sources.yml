@@ -56,12 +56,16 @@ sources:
     tables:
       - name: top_fq_companies # name you want to call it
         identifier: top_fq_companies # name for the source table
-        description: "Contains data about google sheetssource synced from Fivetran."
+        description: "Contains data about google sheetssource synced directly."
 
       - name: lounge_dates # name you want to call it
         identifier: lounge_dates # name for the source table
-        description: "Contains data about google sheetssource synced from Fivetran."
+        description: "Contains data about google sheetssource synced directly."
 
       - name: party_dates # name you want to call it
         identifier: party_dates # name for the source table
-        description: "Contains data about google sheetssource synced from Fivetran."
+        description: "Contains data about google sheetssource synced directly."
+
+      - name: sales_team_goals # name you want to call it
+        identifier: sales_team_goals # name for the source table
+        description: "Contains data about google sheetssource synced directly."
