@@ -88,17 +88,17 @@ select
     deal_name,
     deal_url,
     deal_create_date,
-    agreement_in_progress_date as date,
-    .85 * deal_amount as pipeline_amount,
+    deal_close_date as date,
+    deal_amount as pipeline_amount,
     deal_close_date,
-    stage_name,
+    'Closed Won' as stage_name,
     owner_name,
     owner_email
 
 from {{ ref("stg_hb_deals") }}
-where stage_name = '85% - Agreement: In Progress (Verbal)'
+where stage_name in ('85% - Agreement: In Progress (Verbal)', 'Invoice: Paid', 'Closed Won')
 
-union all
+{# union all
 
 select
     deal_id,
@@ -131,107 +131,4 @@ select
 
 from {{ ref("stg_hb_deals") }}
 where
-    stage_name = 'Closed Won'
-
-    {# select distinct
-    deal_id,
-    deal_name,
-    deal_url,
-    deal_create_date,
-    stage_change_date as date,
-    deal_amount,
-    deal_close_date,
-    stage_name,
-    owner_name,
-    owner_email
-
-from {{ ref("fct_hb_deals_stage_history") }}
-where stage_name = '1%-Prospecting'
-
-union all
-
-select distinct
-    deal_id,
-    deal_name,
-    deal_url,
-    deal_create_date,
-    stage_change_date as date,
-    deal_amount,
-    deal_close_date,
-    stage_name,
-    owner_name,
-    owner_email
-
-from {{ ref("fct_hb_deals_stage_history") }}
-where stage_name = '20% - Prelim Convo/Shared Overview'
-
-union all
-
-select distinct
-    deal_id,
-    deal_name,
-    deal_url,
-    deal_create_date,
-    stage_change_date as date,
-    deal_amount,
-    deal_close_date,
-    stage_name,
-    owner_name,
-    owner_email
-
-from {{ ref("fct_hb_deals_stage_history") }}
-where stage_name = '40% - Sent RFP Response'
-
-union all
-
-select distinct
-    deal_id,
-    deal_name,
-    deal_url,
-    deal_create_date,
-    stage_change_date as date,
-    deal_amount,
-    deal_close_date,
-    stage_name,
-    owner_name,
-    owner_email
-
-from {{ ref("fct_hb_deals_stage_history") }}
-where stage_name = '60% - Active Negotiation'
-
-union all
-
-select distinct
-    deal_id,
-    deal_name,
-    deal_url,
-    deal_create_date,
-    stage_change_date as date,
-    deal_amount,
-    deal_close_date,
-    stage_name,
-    owner_name,
-    owner_email
-
-from {{ ref("fct_hb_deals_stage_history") }}
-where stage_name = '80% - Recommended/Likely to Close'
-
-union all
-
-select distinct
-    deal_id,
-    deal_name,
-    deal_url,
-    deal_create_date,
-    stage_change_date as date,
-    deal_amount,
-    deal_close_date,
-    'Closed Won' as stage_name,
-    owner_name,
-    owner_email
-
-from {{ ref("fct_hb_deals_stage_history") }}
-where
-    stage_name
-    in ('85% - Agreement: In Progress (Verbal)', 'Closed Won', 'Invoice Paid') #}
-    
+    stage_name = 'Closed Won' #}
