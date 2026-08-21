@@ -13,7 +13,9 @@ with
             owner_name,
             owner_email,
             is_owner_active,
-            deal_create_date
+            deal_create_date,
+            company_name,
+            deal_link
 
         from {{ ref("stg_hb_deals") }} as de
         left join
