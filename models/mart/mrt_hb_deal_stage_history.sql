@@ -8,7 +8,9 @@ select distinct
     deal_close_date,
     stage_name,
     owner_name,
-    owner_email
+    owner_email,
+    company_name,
+    deal_link
 
 from {{ ref("fct_hb_deals_stage_history") }}
 where stage_name = '1%-Prospecting'
@@ -25,7 +27,9 @@ select distinct
     deal_close_date,
     stage_name,
     owner_name,
-    owner_email
+    owner_email,
+    company_name,
+    deal_link
 
 from {{ ref("fct_hb_deals_stage_history") }}
 where stage_name = '20% - Prelim Convo/Shared Overview'
@@ -42,7 +46,9 @@ select distinct
     deal_close_date,
     stage_name,
     owner_name,
-    owner_email
+    owner_email,
+    company_name,
+    deal_link
 
 from {{ ref("fct_hb_deals_stage_history") }}
 where stage_name = '40% - Sent RFP Response'
@@ -59,7 +65,9 @@ select distinct
     deal_close_date,
     stage_name,
     owner_name,
-    owner_email
+    owner_email,
+    company_name,
+    deal_link
 
 from {{ ref("fct_hb_deals_stage_history") }}
 where stage_name = '60% - Active Negotiation'
@@ -76,7 +84,9 @@ select distinct
     deal_close_date,
     stage_name,
     owner_name,
-    owner_email
+    owner_email,
+    company_name,
+    deal_link
 
 from {{ ref("fct_hb_deals_stage_history") }}
 where stage_name = '80% - Recommended/Likely to Close'
@@ -93,7 +103,9 @@ select distinct
     deal_close_date,
     stage_name,
     owner_name,
-    owner_email
+    owner_email,
+    company_name,
+    deal_link
 
 from {{ ref("fct_hb_deals_stage_history") }}
 where stage_name = '85% - Agreement: In Progress (Verbal)'
@@ -110,7 +122,9 @@ select distinct
     deal_close_date,
     stage_name,
     owner_name,
-    owner_email
+    owner_email,
+    company_name,
+    deal_link
 
 from {{ ref("fct_hb_deals_stage_history") }}
 where stage_name = 'Closed Won'
@@ -127,7 +141,9 @@ select distinct
     deal_close_date,
     stage_name,
     owner_name,
-    owner_email
+    owner_email,
+    company_name,
+    deal_link
 
 from {{ ref("fct_hb_deals_stage_history") }}
 where stage_name = 'Invoice Paid'

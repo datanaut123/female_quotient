@@ -8,7 +8,9 @@ select
     deal_close_date,
     stage_name,
     owner_name,
-    owner_email
+    owner_email,
+    company_name,
+    deal_link
 
 from {{ ref("stg_hb_deals") }}
 where stage_name = '1% - Prospecting'
@@ -25,7 +27,9 @@ select
     deal_close_date,
     stage_name,
     owner_name,
-    owner_email
+    owner_email,
+    company_name,
+    deal_link
 
 from {{ ref("stg_hb_deals") }}
 where stage_name = '20% - Prelim Convo/Shared Overview'
@@ -42,7 +46,9 @@ select
     deal_close_date,
     stage_name,
     owner_name,
-    owner_email
+    owner_email,
+    company_name,
+    deal_link
 
 from {{ ref("stg_hb_deals") }}
 where stage_name = '40% - Sent RFP Response'
@@ -59,7 +65,9 @@ select
     deal_close_date,
     stage_name,
     owner_name,
-    owner_email
+    owner_email,
+    company_name,
+    deal_link
 
 from {{ ref("stg_hb_deals") }}
 where stage_name = '60% - Active Negotiation'
@@ -76,7 +84,9 @@ select
     deal_close_date,
     stage_name,
     owner_name,
-    owner_email
+    owner_email,
+    company_name,
+    deal_link
 
 from {{ ref("stg_hb_deals") }}
 where stage_name = '80% - Recommended/Likely to Close'
@@ -88,17 +98,19 @@ select
     deal_name,
     deal_url,
     deal_create_date,
-    deal_close_date as date,
-    deal_amount as pipeline_amount,
+    eighty_five_aggrement_date as date,
+    .85 * deal_amount as pipeline_amount,
     deal_close_date,
-    'Closed Won' as stage_name,
+    stage_name,
     owner_name,
-    owner_email
+    owner_email,
+    company_name,
+    deal_link
 
 from {{ ref("stg_hb_deals") }}
-where stage_name in ('85% - Agreement: In Progress (Verbal)', 'Invoice: Paid', 'Closed Won')
+where stage_name = '85% - Agreement: In Progress (Verbal)'
 
-{# union all
+union all
 
 select
     deal_id,
@@ -110,7 +122,9 @@ select
     deal_close_date,
     stage_name,
     owner_name,
-    owner_email
+    owner_email,
+    company_name,
+    deal_link
 
 from {{ ref("stg_hb_deals") }}
 where stage_name = 'Invoice: Paid'
@@ -127,8 +141,10 @@ select
     deal_close_date,
     stage_name,
     owner_name,
-    owner_email
+    owner_email,
+    company_name,
+    deal_link
 
 from {{ ref("stg_hb_deals") }}
 where
-    stage_name = 'Closed Won' #}
+    stage_name = 'Closed Won'
