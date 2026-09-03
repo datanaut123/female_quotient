@@ -99,7 +99,7 @@ select
     deal_url,
     deal_create_date,
     eighty_five_aggrement_date as date,
-    .85 * deal_amount as pipeline_amount,
+    deal_amount as pipeline_amount,
     deal_close_date,
     stage_name,
     owner_name,
