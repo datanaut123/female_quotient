@@ -30,7 +30,7 @@ with
                 property_hs_v_2_date_entered_176203071
             ) as eighty_recomment_likely_date,
             date(property_hs_v_2_date_entered_178125739) as eighty_five_aggrement_date,
-            concat('https://app.hubspot.com/deals/', deal_id) as deal_link
+            concat('https://app.hubspot.com/contacts/23490409/record/0-3/', deal_id) as deal_link
 
         from {{ source('hubspot', 'deal') }} as de
         left join
