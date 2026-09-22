@@ -110,7 +110,7 @@ select
 from {{ ref("stg_hb_deals") }}
 where stage_name = '85% - Agreement: In Progress (Verbal)'
 
-{# union all
+union all
 
 select
     deal_id,
@@ -127,7 +127,7 @@ select
     deal_link
 
 from {{ ref("stg_hb_deals") }}
-where stage_name = 'Invoice: Paid' #}
+where stage_name = 'Invoice: Paid'
 
 union all
 
@@ -147,4 +147,4 @@ select
 
 from {{ ref("stg_hb_deals") }}
 where
-    stage_name in('Closed Won', 'Invoice: Paid')
+    stage_name = 'Closed Won'
