@@ -70,6 +70,6 @@ sources:
         identifier: party_dates # name for the source table
         description: "Contains data about google sheetssource synced directly."
 
-      - name: sales_team_goals # name you want to call it
-        identifier: sales_team_goals # name for the source table
+      - name: sales_team_goals_updated # name you want to call it
+        identifier: sales_team_goals_updated # name for the source table
         description: "Contains data about google sheetssource synced directly."
