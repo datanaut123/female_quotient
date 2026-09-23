@@ -1,13 +1,13 @@
-with
-    team_goals as (
+{# with
+    team_goals as ( #}
         select
             team_member,
             safe_cast(regexp_replace(goal, r'[^0-9.-]', '') as int64) as goal,
             safe.parse_date('%m/%d/%Y', quarter) as quarter
 
-        from {{ source('sheets', 'sales_team_goals') }}
+        from {{ source('sheets', 'sales_team_goals_updated') }}
         where lower(team_member) not like '%hubspot%'
-    ),
+    {# ),
 
     team_goals_agg as (
         select sum(goal) as team_agg_goal, quarter
@@ -47,4 +47,4 @@ select
     coalesce(dj.quarter, sq.quarter) as quarter
 
 from data_join as dj
-left join sarah_q1_goals as sq on dj.quarter = sq.quarter
+left join sarah_q1_goals as sq on dj.quarter = sq.quarter #}
