@@ -71,7 +71,8 @@ with contacts as (select
     property_zoominfo_contact_id as zoominfo_contact_id,
     property_number_of_inboun as number_of_inbound_email,
     is_submitted_form,
-    form_submitted_at
+    form_submitted_at,
+    property_what_is_your_role_in_purchase_decisions_ as what_is_your_role_in_company_purchase_decisions
 
 from {{ source('hubspot', 'contact') }} as cn
 left join

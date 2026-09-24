@@ -76,7 +76,8 @@ with
             is_submitted_form,
             reception_party_rsvpd_date,
             form_submitted_at,
-            number_of_inbound_email
+            number_of_inbound_email,
+            what_is_your_role_in_company_purchase_decisions
 
         from {{ ref("stg_hb_contacts") }}
     ),
@@ -283,9 +284,18 @@ select
     reception_party_rsvpd_date,
     form_submitted_at,
     number_of_inbound_email,
+    case
+        when email is null or email = ''
+        then 'Email - Not Available'
+        when first_name is null or first_name = ''
+        then 'First Name - Not Available'
+        else 'Email or Name - Available' end as user_pii_filter,
+    what_is_your_role_in_company_purchase_decisions
 
-from company_name_cleaned
-where
+        from
+            company_name_cleaned
+            {# where
     (first_name is not null and first_name != '')
     and (last_name is not null and last_name != '')
-    and (email is not null and email != '')
+    and (email is not null and email != '') #}
+            

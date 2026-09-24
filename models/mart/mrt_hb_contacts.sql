@@ -151,7 +151,11 @@ with
             lower(reception_or_party_attended) as reception_or_party_attended_lower,
 
             -- Newsletter & Enrichment
-            is_subscribed_to_newsletter,
+            case
+                when is_subscribed_to_newsletter is null
+                then false
+                else is_subscribed_to_newsletter
+            end as is_subscribed_to_newsletter,
             zoominfo_contact_accuracy_score,
             case
                 when b.is_fq_partner is null then 'No' else is_fq_partner
@@ -186,11 +190,41 @@ with
                 current_date(), date(form_submitted_at), day
             ) as days_since_last_form_submitted,
             num_lounge_attended_last_year,
-            number_of_inbound_email
+            number_of_inbound_email,
+            user_pii_filter,
+            what_is_your_role_in_company_purchase_decisions,
+            case
+                when
+                    what_is_your_role_in_company_purchase_decisions
+                    = 'Final decision maker'
+                then 1
+                when
+                    what_is_your_role_in_company_purchase_decisions
+                    = 'Part of decision-making committee'
+                then 2
+                when
+                    what_is_your_role_in_company_purchase_decisions
+                    = 'Influence decisions'
+                then 3
+                when
+                    what_is_your_role_in_company_purchase_decisions
+                    = 'Implement solutions'
+                then 4
+                when
+                    what_is_your_role_in_company_purchase_decisions
+                    = 'Research / evaluate options'
+                then 5
+                when what_is_your_role_in_company_purchase_decisions = 'No involvement'
+                then 6
+                else 7
+            end as purchase_decision_filter
 
-        from {{ ref("fct_hb_filtered_contacts") }} as a
+        -- from {{ ref("fct_hb_filtered_contacts") }} as a
+        from {{ ref("fct_hb_contacts") }} as a
         left join {{ ref("fct_hb_fq_partners") }} as b on a.contact_id = b.contact_id
-        left join {{ ref("stg_hb_contact_property_history") }} as c on a.contact_id = c.contact_id
+        left join
+            {{ ref("stg_hb_contact_property_history") }} as c
+            on a.contact_id = c.contact_id
         qualify rn = 1
     )
 
@@ -228,6 +262,5 @@ select
         then 3
         else 4
     end as engagement_level_order,
-
 
 from cte_1
