@@ -148,3 +148,23 @@ select
 from {{ ref("stg_hb_deals") }}
 where
     stage_name = 'Closed Won'
+
+union all
+
+select
+    deal_id,
+    deal_name,
+    deal_url,
+    deal_create_date,
+    deal_close_date as date,
+    deal_amount as pipeline_amount,
+    deal_close_date,
+    'Closed Lost' as stage_name,
+    owner_name,
+    owner_email,
+    company_name,
+    deal_link
+
+from {{ ref("stg_hb_deals") }}
+where
+    stage_name = 'Closed lost'
