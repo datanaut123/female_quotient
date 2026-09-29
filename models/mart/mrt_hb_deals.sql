@@ -41,7 +41,9 @@ with
                 when stage_name = 'Invoice: Paid'
                 then 10
                 else 11
-            end as stage_ranking
+            end as stage_ranking,
+            deal_source_tentpole,
+            opportunity_type
 
         from {{ ref("fct_hb_deals") }}
     ),
@@ -69,7 +71,9 @@ with
             goal,
             company_name,
             deal_link,
-            stage_ranking
+            stage_ranking,
+            deal_source_tentpole,
+            opportunity_type
 
         from deals as de
         full join

@@ -10,7 +10,9 @@ select
     owner_name,
     owner_email,
     company_name,
-    deal_link
+    deal_link,
+    deal_source_tentpole,
+    opportunity_type
 
 from {{ ref("stg_hb_deals") }}
 where stage_name = '1% - Prospecting'
@@ -29,7 +31,9 @@ select
     owner_name,
     owner_email,
     company_name,
-    deal_link
+    deal_link,
+    deal_source_tentpole,
+    opportunity_type
 
 from {{ ref("stg_hb_deals") }}
 where stage_name = '20% - Prelim Convo/Shared Overview'
@@ -48,7 +52,9 @@ select
     owner_name,
     owner_email,
     company_name,
-    deal_link
+    deal_link,
+    deal_source_tentpole,
+    opportunity_type
 
 from {{ ref("stg_hb_deals") }}
 where stage_name = '40% - Sent RFP Response'
@@ -67,7 +73,9 @@ select
     owner_name,
     owner_email,
     company_name,
-    deal_link
+    deal_link,
+    deal_source_tentpole,
+    opportunity_type
 
 from {{ ref("stg_hb_deals") }}
 where stage_name = '60% - Active Negotiation'
@@ -86,7 +94,9 @@ select
     owner_name,
     owner_email,
     company_name,
-    deal_link
+    deal_link,
+    deal_source_tentpole,
+    opportunity_type
 
 from {{ ref("stg_hb_deals") }}
 where stage_name = '80% - Recommended/Likely to Close'
@@ -105,7 +115,9 @@ select
     owner_name,
     owner_email,
     company_name,
-    deal_link
+    deal_link,
+    deal_source_tentpole,
+    opportunity_type
 
 from {{ ref("stg_hb_deals") }}
 where stage_name = '85% - Agreement: In Progress (Verbal)'
@@ -124,7 +136,9 @@ select
     owner_name,
     owner_email,
     company_name,
-    deal_link
+    deal_link,
+    deal_source_tentpole,
+    opportunity_type
 
 from {{ ref("stg_hb_deals") }}
 where stage_name = 'Invoice: Paid'
@@ -143,7 +157,9 @@ select
     owner_name,
     owner_email,
     company_name,
-    deal_link
+    deal_link,
+    deal_source_tentpole,
+    opportunity_type
 
 from {{ ref("stg_hb_deals") }}
 where
@@ -163,7 +179,9 @@ select
     owner_name,
     owner_email,
     company_name,
-    deal_link
+    deal_link,
+    deal_source_tentpole,
+    opportunity_type
 
 from {{ ref("stg_hb_deals") }}
 where

@@ -30,13 +30,16 @@ with
                 property_hs_v_2_date_entered_176203071
             ) as eighty_recomment_likely_date,
             date(property_hs_v_2_date_entered_178125739) as eighty_five_aggrement_date,
-            concat('https://app.hubspot.com/contacts/23490409/record/0-3/', deal_id) as deal_link
+            concat('https://app.hubspot.com/contacts/23490409/record/0-3/', deal_id) as deal_link,
+            property_deal_source_tentpole as deal_source_tentpole,
+            property_opportunity_type as opportunity_type
 
         from {{ source('hubspot', 'deal') }} as de
         left join
             {{ source('hubspot', 'deal_pipeline_stage') }} as dps
             on de.deal_pipeline_stage_id = dps.stage_id
         left join {{ ref("stg_hb_owner") }} as ow on de.owner_id = ow.owner_id
+        where de.is_deleted is false
     ),
 
     deal_comp as (select deal_id, company_id from {{ ref("stg_hb_deal_company") }}),
