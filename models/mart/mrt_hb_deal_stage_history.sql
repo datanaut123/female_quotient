@@ -4,13 +4,28 @@ select distinct
     deal_url,
     deal_create_date,
     stage_change_date as date,
-    deal_amount,
+    .01 * deal_amount as deal_amount,
     deal_close_date,
     stage_name,
     owner_name,
     owner_email,
     company_name,
-    deal_link
+    deal_link,
+    case
+        when stage_change_date <= '2025-12-31'
+        then 1
+        when
+            deal_close_date >= '2026-01-01'
+            and owner_name in (
+                "Fleming Longino",
+                "Sarah Williams",
+                "Jon Ronga",
+                "Ale Waase",
+                "Emmy York"
+            )
+        then 1
+        else 0
+    end as sales_person_filter
 
 from {{ ref("fct_hb_deals_stage_history") }}
 where stage_name = '1%-Prospecting'
@@ -23,13 +38,28 @@ select distinct
     deal_url,
     deal_create_date,
     stage_change_date as date,
-    deal_amount,
+    .20 * deal_amount as deal_amount,
     deal_close_date,
     stage_name,
     owner_name,
     owner_email,
     company_name,
-    deal_link
+    deal_link,
+    case
+        when stage_change_date <= '2025-12-31'
+        then 1
+        when
+            deal_close_date >= '2026-01-01'
+            and owner_name in (
+                "Fleming Longino",
+                "Sarah Williams",
+                "Jon Ronga",
+                "Ale Waase",
+                "Emmy York"
+            )
+        then 1
+        else 0
+    end as sales_person_filter
 
 from {{ ref("fct_hb_deals_stage_history") }}
 where stage_name = '20% - Prelim Convo/Shared Overview'
@@ -42,13 +72,29 @@ select distinct
     deal_url,
     deal_create_date,
     stage_change_date as date,
-    deal_amount,
+    .40 * deal_amount as deal_amount,
     deal_close_date,
     stage_name,
     owner_name,
     owner_email,
     company_name,
-    deal_link
+    deal_link,
+    case
+        when stage_change_date <= '2025-12-31'
+        then 1
+
+        when
+            deal_close_date >= '2026-01-01'
+            and owner_name in (
+                "Fleming Longino",
+                "Sarah Williams",
+                "Jon Ronga",
+                "Ale Waase",
+                "Emmy York"
+            )
+        then 1
+        else 0
+    end as sales_person_filter
 
 from {{ ref("fct_hb_deals_stage_history") }}
 where stage_name = '40% - Sent RFP Response'
@@ -61,13 +107,29 @@ select distinct
     deal_url,
     deal_create_date,
     stage_change_date as date,
-    deal_amount,
+    .60 * deal_amount as deal_amount,
     deal_close_date,
     stage_name,
     owner_name,
     owner_email,
     company_name,
-    deal_link
+    deal_link,
+    case
+        when stage_change_date <= '2025-12-31'
+        then 1
+
+        when
+            deal_close_date >= '2026-01-01'
+            and owner_name in (
+                "Fleming Longino",
+                "Sarah Williams",
+                "Jon Ronga",
+                "Ale Waase",
+                "Emmy York"
+            )
+        then 1
+        else 0
+    end as sales_person_filter
 
 from {{ ref("fct_hb_deals_stage_history") }}
 where stage_name = '60% - Active Negotiation'
@@ -80,13 +142,28 @@ select distinct
     deal_url,
     deal_create_date,
     stage_change_date as date,
-    deal_amount,
+    .80 * deal_amount as deal_amount,
     deal_close_date,
     stage_name,
     owner_name,
     owner_email,
     company_name,
-    deal_link
+    deal_link,
+    case
+        when stage_change_date <= '2025-12-31'
+        then 1
+        when
+            deal_close_date >= '2026-01-01'
+            and owner_name in (
+                "Fleming Longino",
+                "Sarah Williams",
+                "Jon Ronga",
+                "Ale Waase",
+                "Emmy York"
+            )
+        then 1
+        else 0
+    end as sales_person_filter
 
 from {{ ref("fct_hb_deals_stage_history") }}
 where stage_name = '80% - Recommended/Likely to Close'
@@ -105,7 +182,22 @@ select distinct
     owner_name,
     owner_email,
     company_name,
-    deal_link
+    deal_link,
+    case
+        when stage_change_date <= '2025-12-31'
+        then 1
+        when
+            deal_close_date >= '2026-01-01'
+            and owner_name in (
+                "Fleming Longino",
+                "Sarah Williams",
+                "Jon Ronga",
+                "Ale Waase",
+                "Emmy York"
+            )
+        then 1
+        else 0
+    end as sales_person_filter
 
 from {{ ref("fct_hb_deals_stage_history") }}
 where stage_name = '85% - Agreement: In Progress (Verbal)'
@@ -116,20 +208,43 @@ select distinct
     deal_id,
     deal_name,
     deal_url,
-    deal_create_date,
-    deal_close_date as date,
-    deal_amount,
-    deal_close_date,
-    stage_name,
+    max(deal_create_date) as deal_create_date,
+    max(deal_close_date) as date,
+    max(deal_amount) as deal_amount,
+    max(deal_close_date) as deal_close_date,
+    'Closed Won' as stage_name,
+    owner_name,
+    owner_email,
+    company_name,
+    deal_link,
+    case
+        when max(deal_close_date) <= '2025-12-31'
+        then 1
+        when
+            max(deal_close_date) >= '2026-01-01'
+            and owner_name in (
+                "Fleming Longino",
+                "Sarah Williams",
+                "Jon Ronga",
+                "Ale Waase",
+                "Emmy York"
+            )
+        then 1
+        else 0
+    end as sales_person_filter
+
+from {{ ref("fct_hb_deals_stage_history") }}
+where stage_name in ('Closed Won', 'Invoice Paid')
+group by 
+    deal_id,
+    deal_name,
+    deal_url,
     owner_name,
     owner_email,
     company_name,
     deal_link
-
-from {{ ref("fct_hb_deals_stage_history") }}
-where stage_name = 'Closed Won'
-
-union all
+    
+{# union all
 
 select distinct
     deal_id,
@@ -143,7 +258,22 @@ select distinct
     owner_name,
     owner_email,
     company_name,
-    deal_link
+    deal_link,
+    case
+        when deal_close_date <= '2025-12-31'
+        then 1
+        when
+            deal_close_date >= '2026-01-01'
+            and owner_name in (
+                "Fleming Longino",
+                "Sarah Williams",
+                "Jon Ronga",
+                "Ale Waase",
+                "Emmy York"
+            )
+        then 1
+        else 0
+    end as sales_person_filter
 
 from {{ ref("fct_hb_deals_stage_history") }}
-where stage_name = 'Invoice Paid'
+where stage_name = 'Invoice Paid' #}
