@@ -38,7 +38,7 @@ sources:
         description: "Contains data about Hubspot source synced from Fivetran."
 
       - name: deal_property_history # name you want to call it
-        identifier: deal_property_history # name for the source table
+        identifier: deal_property_history # name for the source table 
         description: "Contains data about Hubspot source synced from Fivetran."
 
       - name: deal_property_history_gcf # name you want to call it
