@@ -1,0 +1,1 @@
+{{ generate_dates(start_date='2023-01-01', end_date='2030-12-31') }}
