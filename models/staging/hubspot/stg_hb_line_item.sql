@@ -18,12 +18,13 @@ select
     property_tentpole_event_group as tentpole_event_group,
     property_hs_acv AS annual_contract_value,
     property_hs_pre_discount_amount AS pre_discount_amount,
+    property_event_year AS event_year
 
 
 from
     {{ source('hubspot', 'line_item_gcf') }}
 
-    {# property_event_year AS event_year,
+    {# 
     property_hs_acv AS hs_acv,
     property_hs_all_accessible_team_ids AS hs_all_accessible_team_ids,
     property_hs_all_assigned_business_unit_ids AS hs_all_assigned_business_unit_ids,

@@ -19,7 +19,8 @@ with
             quantity,
             tentpole_event_group,
             annual_contract_value,
-            pre_discount_amount
+            pre_discount_amount,
+            event_year
 
         from {{ ref("stg_hb_line_item") }}
     ),
@@ -46,7 +47,8 @@ select
     tentpole_event_group,
     annual_contract_value,
     pre_discount_amount,
-    deal_id
+    deal_id,
+    event_year
 
 from cte_1 as a
 left join cte_2 as b on a.id = b.line_item_id
